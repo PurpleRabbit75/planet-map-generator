@@ -20,7 +20,8 @@ from time import sleep
 # }
 
 
-def get_bitmap(params): 
+
+def get_bitmap(params, output_filename): 
     session = requests.Session()
 
     request_map_regen = session.post("https://topps.diku.dk/torbenm/maps.msp",data=params)
@@ -32,5 +33,16 @@ def get_bitmap(params):
     get_img_response.raise_for_status()
 
 
-    with open(f"Map-{params["seed"][-3:]}.bmp", "wb") as f:
+    with open(output_filename, "wb") as f:
         f.write(get_img_response.content)
+
+
+
+
+def get_maps(general_params, globe_params):
+    """Get both the map and the globe images from the TorbenM website."""
+    # Get the map image
+    get_bitmap(general_params, "flatmap.bmp")
+    # Get the globe image
+    sleep(4)  # Wait for the map to be generated before trying to display it
+    get_bitmap(globe_params, "maxmercator.bmp")

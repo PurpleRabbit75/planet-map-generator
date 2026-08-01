@@ -1,6 +1,7 @@
 import streamlit as st
 from time import sleep
-from get_torbenm_map import get_bitmap
+from fetch_map import get_maps
+from parse_args import build_map_form_data, build_globe_params
 
 st.title("Planet Map Generator")
 st.write(
@@ -40,109 +41,15 @@ with col5:
 
 
 
-def build_map_form_data(
-    seed, width, height, zoom, center_lat, center_long, grid,
-    projection, colourmap, shading, contours,
-    adjust_color_by_latitude, water,
-    altitude_scaling, wrinkly_maps, biome_maps,
-):
-    """Convert Streamlit widget values into the POST form data expected
-    by https://topps.diku.dk/torbenm/maps.msp
-    """
+general_params = build_map_form_data(
+        seed, width, height, zoom, center_lat, center_long, grid, projection, 
+        colourmap, shading, contours, adjust_color_by_latitude, water,
+        altitude_scaling, wrinkly_maps, biome_maps,
+    )
 
-    projection_map = {
-        "Mollweide": "M",
-        "Mercator": "m",
-        "Peters": "p",
-        "Square": "q",
-        "Stereographic": "s",
-        "Orthographic": "o",
-        "Gnomonic": "g",
-        "Area Preserving Azimuthal": "a",
-        "Conical": "c",
-        "Icosahedral": "i",
-        "Sinusoidal": "S",
-        "Equirectangular": "m",  # site has no separate option; go with Mercator and convert it in a moment
-    }
-
-    colourmap_map = {
-        "Olsson": "Olsson.col",
-        "Olsson Light": "OlssonLight.col",
-        "Olsson2": "Olsson2.col",
-        "OlssonW": "OlssonW.col",
-        "Mogensen": "default.col",
-        "Mogensen black": "defaultB.col",
-        "Bathymetric": "Bathymetric.col",
-        "Burrows": "burrows.col",
-        "Burrows black": "burrowsB.col",
-        "Mars": "mars.col",
-        "White": "white.col",
-        "Yellow": "yellow.col",
-        "Greyscale": "greyscale.col",
-        "Black body radiation": "Blackbody.col",
-        "Lefebvre": "Lefebvre.col",
-        "Lefebvre2": "Lefebvre2.col",
-        "uniform blue/green": "2col.col",
-    }
-
-    shading_map = {
-        "None": "",
-        "Bumpmap": " -B",
-        "Bumpmap on land only": " -b",
-        "Daylight": " -d -a 50",
-    }
-
-    contours_map = {
-        "None": "",
-        "Coastlines only": " -E ",
-        "2 (land)": " -E2 ",
-        "5 (land)": " -E5 ",
-        "10 (land)": " -E10 ",
-        "1 (coast)": " -E-1 ",
-        "2 (coast)": " -E-2 ",
-        "3 (coast)": " -E-3 ",
-    }
-
-    polar_map = {
-        "No": "",
-        "Yes": " -c ",
-        "Yes, strongly": " -c -c ",
-        "Yes, very strongly": " -c -c -c ",
-    }
-
-
-    form_data = {
-        "seed": str(seed),
-        "projection": projection_map[projection],
-        "width": str(width),
-        "height": str(height),
-        "shading": shading_map[shading],
-        "zoom": str(zoom),
-        "lati": str(center_lat),
-        "longi": str(center_long),
-        "grid": str(grid),
-        "colourmap": colourmap_map[colourmap],
-        "outline": contours_map[contours],
-        "polar": polar_map[adjust_color_by_latitude],
-        "water": str(water),
-        "what": "Make map",
-    }
-
-    # Checkboxes: only present (with their value) when checked
-    if altitude_scaling:
-        form_data["nonLinear"] = " -n "
-    if wrinkly_maps:
-        form_data["wrinkly"] = " -S "
-    if biome_maps:
-        form_data["biome"] = " -z "
-
-    return form_data
-
-
-
-params = build_map_form_data(
-        seed, width, height, zoom, center_lat, center_long, grid, projection, colourmap, shading, contours,
-        adjust_color_by_latitude, water,
+globe_params = build_globe_params(
+        seed, "2000", "2000", zoom, "0", "0", grid, "m", 
+        colourmap, shading, contours, adjust_color_by_latitude, water,
         altitude_scaling, wrinkly_maps, biome_maps,
     )
 
@@ -150,8 +57,11 @@ params = build_map_form_data(
 
 col6, col7, col8 = st.columns(3)
 with col6:
-    st.button("Make map", on_click=get_bitmap, args=([params]))
+    st.button("Make map", on_click=get_maps, args=([general_params, globe_params]))
 
 
-sleep(3)  # Wait for the map to be generated before trying to display it
-st.image(f"Map-{params['seed'][-3:]}.bmp")
+# sleep(3)  # Wait for the map to be generated before trying to display it
+st.image("flatmap.bmp")
+# st.image("maxmercator.bmp")
+
+
