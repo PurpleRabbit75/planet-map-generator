@@ -4,8 +4,8 @@ from PIL import Image
 def mercator_to_equirectangular(
     src_path,
     dst_path,
-    lat_min=0,   # standard Web Mercator limit
-    lat_max=0,
+    lat_min=85.051129,   # standard Web Mercator limit
+    lat_max=-85.051129,
     out_height=None,          # defaults to 2:1 aspect (proper equirectangular)
 ):
     img = Image.open(src_path).convert("RGB")
@@ -40,6 +40,3 @@ def mercator_to_equirectangular(
 
     Image.fromarray(out).save(dst_path)
     print(f"Wrote {dst_path}: {out.shape[1]}x{out.shape[0]}")
-
-# Example
-mercator_to_equirectangular("mercator.png", "equirectangular.png")

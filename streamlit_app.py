@@ -1,9 +1,9 @@
 import streamlit as st
 from time import sleep
-import base64
-import streamlit.components.v1 as components
 from fetch_map import get_maps
 from parse_args import build_map_form_data, build_globe_params
+from visualize_globe import display_globe
+from mercator2equirectangular import mercator_to_equirectangular
 
 
 st.title("Planet Map Generator")
@@ -67,29 +67,9 @@ with col6:
 st.image("flatmap.bmp")
 # st.image("maxmercator.bmp")
 
+mercator_to_equirectangular("maxmercator.bmp", "equirectangular.bmp")
 
-uploaded = open("./maxmercator.bmp", "rb").read()
-auto_rotate = st.checkbox("Auto-rotate", value=True)
-
-b64 = base64.b64encode(uploaded).decode()
-data_uri = f"data:image/bmp;base64,{b64}"
-
-html_code = f"""
-<div id="globeViz" style="width:100%;height:650px;"></div>
-<script src="https://unpkg.com/globe.gl"></script>
-<script>
-    const globe = Globe()
-    (document.getElementById('globeViz'))
-    .globeImageUrl('{data_uri}')
-    .backgroundColor('rgba(0,0,0,0)')
-    .width(document.getElementById('globeViz').clientWidth)
-    .height(650);
-
-    globe.controls().autoRotate = {str(auto_rotate).lower()};
-    globe.controls().autoRotateSpeed = 0.6;
-</script>
-"""
-components.html(html_code, height=670)
+display_globe("equirectangular.bmp")
 
 
 
