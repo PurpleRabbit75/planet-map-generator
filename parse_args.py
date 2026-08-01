@@ -74,7 +74,7 @@ def build_map_form_data(
         "seed": str(seed),
         "projection": projection_map[projection],
         "width": str(width),
-        "height": str(height),
+        "height": str(height) if projection != "Equirectangular" else str(width), # Make a big square for the converter
         "shading": shading_map[shading],
         "zoom": str(zoom),
         "lati": str(center_lat),
