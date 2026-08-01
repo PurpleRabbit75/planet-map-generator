@@ -2,25 +2,25 @@ import requests
 from time import sleep
 
 
-params = {
-    "seed": "1111111",
-    "projection": "M",
-    "width": "500",
-    "colourmap": "Olsson.col",
-    "height": "250",
-    "shading": "",
-    "zoom": "1",
-    "outline": "",
-    "lati": "",
-    "polar": "",
-    "longi": "",
-    "water": "-0.02",
-    "grid": "none",
-    "what": "Make map"
-}
+# params = {
+#     "seed": "1111111",
+#     "projection": "M",
+#     "width": "500",
+#     "colourmap": "Olsson.col",
+#     "height": "250",
+#     "shading": "",
+#     "zoom": "1",
+#     "outline": "",
+#     "lati": "",
+#     "polar": "",
+#     "longi": "",
+#     "water": "-0.02",
+#     "grid": "none",
+#     "what": "Make map"
+# }
 
 
-def get_bitmap(params):
+def get_bitmap(params): 
     session = requests.Session()
 
     request_map_regen = session.post("https://topps.diku.dk/torbenm/maps.msp",data=params)
