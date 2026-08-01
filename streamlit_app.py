@@ -3,7 +3,6 @@ from time import sleep
 from fetch_map import get_maps
 from parse_args import build_map_form_data, build_globe_params
 from visualize_globe import display_globe
-from mercator2equirectangular import mercator_to_equirectangular
 
 
 st.title("Planet Map Generator")
@@ -34,6 +33,7 @@ with col2:
     water = st.number_input("Water line (-0.1 to 0.1):", value=-0.02)
 
 col3, col4, col5 = st.columns(3, border=True)
+
 with col3:
     altitude_scaling = st.checkbox("Non-linear altitude scaling")
 with col4:
@@ -63,13 +63,19 @@ with col6:
     st.button("Make map", on_click=get_maps, args=([general_params, globe_params]))
 
 
-# sleep(3)  # Wait for the map to be generated before trying to display it
-st.image("flatmap.bmp")
-# st.image("maxmercator.bmp")
 
-mercator_to_equirectangular("maxmercator.bmp", "equirectangular.bmp")
+try:
+    if (projection == "Equirectangular"):
+        st.image("equirectangular.bmp")
+    else:
+        st.image("flatmap.bmp")
+except FileNotFoundError:
+    st.text("Map is loading...")
 
-display_globe("equirectangular.bmp")
+try:
+    display_globe("equirectangular.bmp")
+except FileNotFoundError:
+    st.text("Globe is loading...")
 
 
 

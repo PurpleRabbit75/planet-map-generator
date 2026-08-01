@@ -166,3 +166,4 @@ cython_debug/
 
 flatmap.bmp
 maxmercator.bmp
+equirectangular.bmp
