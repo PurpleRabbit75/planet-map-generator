@@ -1,4 +1,5 @@
 import requests
+import json
 from time import sleep
 from mercator2equirectangular import mercator_to_equirectangular
 
@@ -48,3 +49,6 @@ def get_maps(general_params, globe_params):
     sleep(4)  # Wait for the map to be generated before trying to display it
     get_bitmap(globe_params, "maxmercator.bmp")
     mercator_to_equirectangular("maxmercator.bmp", "equirectangular.bmp")
+
+    with open("map.json", "w") as f:
+        json.dump(general_params, f)
