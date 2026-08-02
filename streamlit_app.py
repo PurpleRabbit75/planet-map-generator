@@ -20,9 +20,9 @@ div[data-testid="stRadio"] label div:first-child {
 
 
 st.title("Planet Map Generator")
-st.write(
-    "This website is based on https://topps.diku.dk/torbenm/maps.msp"
-)
+st.write("This website is based on https://topps.diku.dk/torbenm/maps.msp")
+st.write("The code for this site is open-source! Check it out on [GitHub](https://github.com/purplerabbit75/planet-map-generator)")
+
 
 st.divider()
 uploaded_file = st.file_uploader("[Optional] Upload map.json parameters file", type="json", width=400)
@@ -132,4 +132,4 @@ with open("map.json", "r") as f:
 
 st.space("xlarge")
 st.divider()
-st.text("Planet Map/Globe Generator v1.1.0")
+st.text("Planet Map/Globe Generator v1.1.1")

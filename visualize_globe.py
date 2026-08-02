@@ -1,4 +1,3 @@
-import streamlit.components.v1 as components
 import base64
 import streamlit as st
 from pathlib import Path
@@ -11,7 +10,7 @@ def display_globe(path_to_bmp):
     data_uri = f"data:image/bmp;base64,{b64}"
 
     js_path = Path(__file__).with_name("globe.gl.min.js")
-    globe_js = js_path.read_text(encoding="utf-8") if js_path.exists() else ""
+    globe_js = js_path.read_text(encoding="utf-8")
 
     html_code = f"""
     <div id="globeViz" style="width:100%;height:650px;"></div>
@@ -28,4 +27,4 @@ def display_globe(path_to_bmp):
         globe.controls().autoRotateSpeed = 0.6;
     </script>
     """
-    components.html(html_code, height=670)
+    st.iframe(html_code, height=670)
