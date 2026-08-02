@@ -1,0 +1,5 @@
+[theme]
+base = "dark"
+primaryColor = "#2E7DFF"
+linkColor = "#4C9AFF"
+font = "serif"
