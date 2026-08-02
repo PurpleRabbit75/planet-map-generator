@@ -112,4 +112,4 @@ with open("map.json", "r") as f:
 
 st.space("xlarge")
 st.divider()
-st.text("Planet Map/Globe Generator v1.0.3")
+st.text("Planet Map/Globe Generator v1.0.4")
