@@ -1,7 +1,7 @@
 [project]
-name = "blank-app-template"
-version = "0.1.0"
-description = "A simple Streamlit app template."
+name = "Planet Map Generator"
+version = "1.0.3"
+description = "A tool to get fantasy maps from Torben Mogensen's generator and visualize them on a globe"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
