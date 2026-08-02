@@ -40,12 +40,13 @@ with col2:
     projection = st.selectbox("Projection", options=sorted(["Mollweide", "Mercator", "Peters", "Square", "Stereographic", "Orthographic", "Gnomonic", "Area Preserving Azimuthal", "Conical", "Icosahedral", "Sinusoidal", "Equirectangular"], key=uploaded_params["projection"].__ne__))
     colourmap = st.selectbox("Colourmap", options=sorted(["Olsson", "Olsson Light", "Olsson2", "OlssonW", "Mogensen", "Mogensen black", "Bathymetric", "Burrows", "Burrows black", "Mars", "White", "Yellow", "Greyscale", "Black body radiation", "Lefebvre", "Lefebvre2", "uniform blue/green"], key=uploaded_params["colourmap"].__ne__))
     shading = st.selectbox("Shading", options=sorted(["None", "Bumpmap", "Bumpmap on land only", "Daylight"], key=uploaded_params["shading"].__ne__))
+    water = st.number_input("Water line (-0.1 to 0.1):", value=float(uploaded_params["water"]))
     st.space(size="xxsmall")
     contours = st.radio("Contour lines", options=sorted(["None", "Coastlines only", "2 (land)", "5 (land)", "10 (land)", "1 (coast)", "2 (coast)", "3 (coast)"], key=uploaded_params["outline"].__ne__), horizontal = True)
     st.space(size="xxsmall")
     adjust_color_by_latitude = st.radio("Adjust Color by Latitude", options=sorted(["No", "Yes", "Yes, strongly", "Yes, very strongly"], key=uploaded_params["polar"].__ne__), horizontal = True)
-    water = st.number_input("Water line (-0.1 to 0.1):", value=float(uploaded_params["water"]))
 
+st.divider()
 col3, col4, col5 = st.columns(3, border=True)
 
 with col3:
@@ -74,7 +75,7 @@ globe_params = build_globe_params(
 
 col6, col7, col8 = st.columns(3)
 with col6:
-    st.button("Make map", on_click=get_maps, args=([general_params, globe_params]))
+    st.button("Refresh Map", on_click=get_maps, args=([general_params, globe_params]), type="primary")
 
 
 
@@ -98,5 +99,4 @@ with open("map.json", "r") as f:
     st.json(json.load(f))
 
 with open("map.json", "r") as f:
-    data = json.load(f)
-    st.download_button("Download Parameters", json.dumps(data), file_name="map.json", mime="application/json")
+        st.download_button("Download Parameters", f, file_name="map.json", mime="application/json", type="primary")
