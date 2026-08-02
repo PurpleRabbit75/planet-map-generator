@@ -97,6 +97,6 @@ st.text("The map you are currently viewing was generated from the following para
 with open("map.json", "r") as f:
     st.json(json.load(f))
 
-with open("params.json", "r") as f:
+with open("map.json", "r") as f:
     data = json.load(f)
     st.download_button("Download Parameters", json.dumps(data), file_name="map.json", mime="application/json")
