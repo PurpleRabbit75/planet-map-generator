@@ -6,6 +6,17 @@ from parse_args import build_map_form_data, build_globe_params
 from visualize_globe import display_globe
 
 
+
+st.markdown("""
+<style>
+div[data-testid="stRadio"] label div:first-child {
+    border: 4px solid var(--st-secondary-background-color) !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
+
 st.title("Planet Map Generator")
 st.write(
     "This website is based on https://topps.diku.dk/torbenm/maps.msp"
@@ -101,4 +112,4 @@ with open("map.json", "r") as f:
 
 st.space("xlarge")
 st.divider()
-st.text("Planet Map/Globe Generator v1.0.2")
+st.text("Planet Map/Globe Generator v1.0.3")
