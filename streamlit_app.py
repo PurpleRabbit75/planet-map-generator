@@ -4,6 +4,8 @@ import json
 from fetch_map import get_maps
 from parse_args import build_map_form_data, build_globe_params
 from visualize_globe import display_globe
+from export_as import make_type_selector
+from PIL import Image
 
 
 
@@ -84,7 +86,25 @@ globe_params = build_globe_params(
 
 col6, col7, col8 = st.columns(3)
 with col6:
-    st.button("Refresh Map", on_click=get_maps, args=([general_params, globe_params]), type="primary")
+    c6=st.container(border=True)
+    c6.space("small")
+    c6.button("Refresh Map", on_click=get_maps, args=([general_params, globe_params]), type="primary")
+    # c6.space("small")
+    c6.space("xxsmall")
+    c6.space("xxsmall")
+with col7:
+    c7=st.container(border=True)
+    c7.space("small")
+    c7.text("NOTE: Map generation may take up to 30 seconds.")
+    c7.space("small")
+with col8:
+    # c8=st.container(border=True)
+    output_type, output_MIME = make_type_selector()
+    img = Image.open("flatmap.bmp")
+    img.save(f"map{output_type}")
+    with open(f"map{output_type}", "rb") as f:
+        st.download_button("Download Map", f.read(), file_name=f"map{output_type}", mime=output_MIME, type="primary")
+st.divider()
 
 
 
@@ -112,4 +132,4 @@ with open("map.json", "r") as f:
 
 st.space("xlarge")
 st.divider()
-st.text("Planet Map/Globe Generator v1.0.4")
+st.text("Planet Map/Globe Generator v1.1.0")

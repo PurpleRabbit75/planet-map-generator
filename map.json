@@ -1,1 +1,1 @@
-{"seed": "1111111", "projection": "a", "width": "1000", "height": "1000", "shading": " -B", "zoom": "1.0", "lati": "0.0", "longi": "0.0", "grid": "90", "colourmap": "mars.col", "outline": "", "polar": "", "water": "-0.02", "what": "Make map", "wrinkly": " -S "}
+{"seed": "1111947", "projection": "M", "width": "500", "height": "250", "shading": "", "zoom": "1.0", "lati": "0.0", "longi": "0.0", "grid": "none", "colourmap": "Olsson.col", "outline": "", "polar": "", "water": "-0.02", "what": "Make map"}
