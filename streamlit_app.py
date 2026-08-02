@@ -22,7 +22,6 @@ else:
 
 st.text("Alternatively, edit the defaults in the fields below: ")
 st.divider()
-# st.text(str(uploaded_file) + "\n\n" + str(type(uploaded_file)) + "\n\n" + str(uploaded_params))
 
 
 col1, col2 = st.columns(2)
@@ -41,11 +40,8 @@ with col2:
     colourmap = st.selectbox("Colourmap", options=sorted(["Olsson", "Olsson Light", "Olsson2", "OlssonW", "Mogensen", "Mogensen black", "Bathymetric", "Burrows", "Burrows black", "Mars", "White", "Yellow", "Greyscale", "Black body radiation", "Lefebvre", "Lefebvre2", "uniform blue/green"], key=uploaded_params["colourmap"].__ne__))
     shading = st.selectbox("Shading", options=sorted(["None", "Bumpmap", "Bumpmap on land only", "Daylight"], key=uploaded_params["shading"].__ne__))
     water = st.number_input("Water line (-0.1 to 0.1):", value=float(uploaded_params["water"]))
-    # st.space(size="xxsmall")
     container1 = st.container(border=True)
     contours = container1.radio("Contour lines", options=sorted(["None", "Coastlines only", "2 (land)", "5 (land)", "10 (land)", "1 (coast)", "2 (coast)", "3 (coast)"], key=uploaded_params["outline"].__ne__), horizontal = True)
-    # st.space(size="xxsmall")
-    # container2 = st.container(border=True)
     adjust_color_by_latitude = st.radio("Adjust Color by Latitude", options=sorted(["No", "Yes", "Yes, strongly", "Yes, very strongly"], key=uploaded_params["polar"].__ne__), horizontal = True)
 
 st.divider()
@@ -101,4 +97,8 @@ with open("map.json", "r") as f:
     st.json(json.load(f))
 
 with open("map.json", "r") as f:
-        st.download_button("Download Parameters", f, file_name="map.json", mime="application/json", type="primary")
+    st.download_button("Download Parameters", f, file_name="map.json", mime="application/json", type="primary")
+
+st.space("xlarge")
+st.divider()
+st.text("Planet Map/Globe Generator v1.0.0")
