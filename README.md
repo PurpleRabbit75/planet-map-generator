@@ -9,6 +9,8 @@
 
 The remainder of the code in this repo is licensed under GPL v3. See the LICENSE file for legal details.
 
+The backend generator was written by Torben Mogensen, whose work is available at [topps.diku.dk/torbenm/maps.msp](https://topps.diku.dk/torbenm/maps.msp)
+
 ## Changelog
 
 ### v1.1.0
